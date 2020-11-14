@@ -95,6 +95,8 @@ public class WeaponsManager : BehaviourBase
 
             _objectToSuck = colls.ToList().Find(c => c.gameObject.GetComponent<SuckableObject>())?.GetComponent<SuckableObject>();
 
+            if (_objectToSuck == null) return;
+
             if (_objectToSuck.IsStunned)
             {
                 _objectToSuck.transform.position = Vector3.Lerp(_objectToSuck.transform.position, suckPoint.position, Time.deltaTime * 10);
