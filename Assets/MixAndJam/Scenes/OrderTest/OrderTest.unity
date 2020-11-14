@@ -359,6 +359,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orderPrefab: {fileID: 6020643071899626225, guid: 1234d976be2d6de4e9cb3b848a57812e,
     type: 3}
+  positions:
+  - hasOrder: 0
+    position: {x: 0, y: 0, z: 0}
+  - hasOrder: 0
+    position: {x: 0.35, y: 0, z: 0}
+  - hasOrder: 0
+    position: {x: 0.7, y: 0, z: 0}
+  - hasOrder: 0
+    position: {x: 1.05, y: 0, z: 0}
+  - hasOrder: 0
+    position: {x: 1.4, y: 0, z: 0}
   orderSets:
   - meat: 1
     tomato: 1

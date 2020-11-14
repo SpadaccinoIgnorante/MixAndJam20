@@ -27,10 +27,14 @@ public class OrderPaper : MonoBehaviour
     public TMP_Text orderText;
     public TMP_Text tableText;
 
+    public int table { get; private set; }
+
     public void Init(int orderNumber, int tableNumber, int meatQuantity = 0, int tomatoQuantity = 0, int lettuceQuantity = 0, int potatoQuantity = 0, int eggQuantity = 0, int cheddarQuantity = 0)
     {
         orderText.text = $"Order #{orderNumber}";
         tableText.text = $"Table n.{tableNumber}";
+
+        table = tableNumber;
 
         if (meatQuantity > 0)
         {
