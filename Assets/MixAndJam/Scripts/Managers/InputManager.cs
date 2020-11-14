@@ -37,7 +37,7 @@ public class InputManager : MonoBehaviour
         playerControls = ReInput.players.GetPlayer(0);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         interact = playerControls.GetButtonDown(INTERACT_ACTION);
         hRightAxis = playerControls.GetAxis(HORIZONTAL_RIGHT_AXIS);

@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class CameraLook : MonoBehaviour
 {
-    public float mouseSensitivityX = 10f;
-    public float mouseSensitivityY = 10f;
-
-    public float verticalViewClamp = 75;
+    public float mouseSensitivity = 10f;
 
     public Transform player;
 
@@ -21,12 +18,12 @@ public class CameraLook : MonoBehaviour
 
     private void Update()
     {
-        float mouseX = InputManager.hRightAxis * mouseSensitivityX * Time.deltaTime;
-        float mouseY = InputManager.vRightAxis * mouseSensitivityY * Time.deltaTime;
+        float mouseX = InputManager.hRightAxis * Time.deltaTime * mouseSensitivity;
+        float mouseY = InputManager.vRightAxis * Time.deltaTime * mouseSensitivity;
 
         xRotation -= mouseY;
 
-        xRotation = Mathf.Clamp(xRotation, -verticalViewClamp, verticalViewClamp);
+        xRotation = Mathf.Clamp(xRotation, -90, 90);
 
         transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
 
