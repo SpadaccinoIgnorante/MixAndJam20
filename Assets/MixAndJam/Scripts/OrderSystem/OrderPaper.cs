@@ -27,14 +27,18 @@ public class OrderPaper : MonoBehaviour
     public TMP_Text orderText;
     public TMP_Text tableText;
 
+    public int table { get; private set; }
+
     public void Init(int orderNumber, int tableNumber, int meatQuantity = 0, int tomatoQuantity = 0, int lettuceQuantity = 0, int potatoQuantity = 0, int eggQuantity = 0, int cheddarQuantity = 0)
     {
         orderText.text = $"Order #{orderNumber}";
         tableText.text = $"Table n.{tableNumber}";
 
+        table = tableNumber;
+
         if (meatQuantity > 0)
         {
-            meatQuantityText.text = $"x {meatQuantity}";
+            meatQuantityText.text = $"X {meatQuantity}";
         }
         else
         {
@@ -43,7 +47,7 @@ public class OrderPaper : MonoBehaviour
 
         if (tomatoQuantity > 0)
         {
-            tomatoQuantityText.text = $"x {tomatoQuantity}";
+            tomatoQuantityText.text = $"X {tomatoQuantity}";
         }
         else
         {
@@ -52,7 +56,7 @@ public class OrderPaper : MonoBehaviour
 
         if (lettuceQuantity > 0)
         {
-            lettuceQuantityText.text = $"x {lettuceQuantity}";
+            lettuceQuantityText.text = $"X {lettuceQuantity}";
         }
         else
         {
@@ -61,7 +65,7 @@ public class OrderPaper : MonoBehaviour
 
         if (potatoQuantity > 0)
         {
-            potatoQuantityText.text = $"x {potatoQuantity}";
+            potatoQuantityText.text = $"X {potatoQuantity}";
         }
         else
         {
@@ -70,7 +74,7 @@ public class OrderPaper : MonoBehaviour
 
         if (eggQuantity > 0)
         {
-            eggQuantityText.text = $"x {eggQuantity}";
+            eggQuantityText.text = $"X {eggQuantity}";
         }
         else
         {
@@ -79,7 +83,7 @@ public class OrderPaper : MonoBehaviour
 
         if (cheddarQuantity > 0)
         {
-            cheddarQuantityText.text = $"x {cheddarQuantity}";
+            cheddarQuantityText.text = $"X {cheddarQuantity}";
         }
         else
         {
