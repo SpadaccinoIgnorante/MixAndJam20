@@ -8,9 +8,15 @@ public class MJGameManager : Singleton<MJGameManager>
     public Action OnPauseUpdate;
     public Action OnUpdate;
     public Action OnFixedUpdate;
-    
+    public Action<bool> OnPauseChanged;
+
     private void Update()
     {
+        if (InputManager.pause)
+        {
+            Debug.Log("Pause");
+            PauseUnpause();
+        }
         // if premo start IsPaused = !IsPaused;
 
         if (!IsPaused)
@@ -29,6 +35,7 @@ public class MJGameManager : Singleton<MJGameManager>
     {
         OnFixedUpdate = null;
         OnUpdate = null;
+        OnPauseChanged = null;
 
         base.OnDestroy();
     }
@@ -36,5 +43,7 @@ public class MJGameManager : Singleton<MJGameManager>
     public void PauseUnpause()
     {
         IsPaused = !IsPaused;
+
+        OnPauseChanged?.Invoke(IsPaused);
     }
 }

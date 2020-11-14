@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponSway : MonoBehaviour
+public class WeaponSway : BehaviourBase
 {
     public float intensity;
     public float smooth;
@@ -14,7 +14,7 @@ public class WeaponSway : MonoBehaviour
         originRotation = transform.localRotation;
     }
 
-    private void Update()
+    protected override void CustomUpdate()
     {
         UpdateSway();
     }
@@ -30,4 +30,6 @@ public class WeaponSway : MonoBehaviour
 
         transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime * smooth);
     }
+
+    protected override void CustomFixedUpdate() { }
 }

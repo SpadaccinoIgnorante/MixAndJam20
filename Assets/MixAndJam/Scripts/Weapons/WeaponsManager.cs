@@ -110,6 +110,12 @@ public class WeaponsManager : BehaviourBase
         }
     }
 
+    protected override void PauseChanged(bool pause)
+    {
+        if (pause)
+            SuckEffectOff();
+    }
+
     private void SuckEffectOn()
     {
         foreach (var go in particles)
