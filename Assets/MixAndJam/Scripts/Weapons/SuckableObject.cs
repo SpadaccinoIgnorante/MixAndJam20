@@ -1,33 +1,85 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SuckableObject : MonoBehaviour
+public class SuckableObject : BehaviourBase
 {
-
-    public float health;
-
-    private bool isBeingSucked = false;
-
-    private GameObject sucker;
-    private bool hasSuckStart;
-    Vector3 startScale;
-    Vector3 suckStartPosition;
-
-    private void Awake()
+    public FloatEvent OnHealthChanged;
+    public float Health 
     {
-        startScale = transform.localScale;
+        get => _health;
+        set { _health = value;  OnHealthChanged?.Invoke(_health); }
     }
 
-    private void Update()
+    [SerializeField]
+    private float _health;
+    [SerializeField]
+    private float _stunTime;
+
+    private bool _isBeingSucked = false;
+
+    private GameObject _sucker;
+    private bool _hasSuckStart;
+    private Vector3 _startScale;
+    private Vector3 _suckStartPosition;
+    private float _originalHealth;
+
+    protected override void Awake()
     {
-        if (isBeingSucked)
+        _originalHealth = _health;
+        _startScale = transform.localScale;
+    }
+
+    public void SetDamage(float damage)
+    {
+        // Already stunned do nothing
+        if (_health <= 0)
+            return;
+
+        Health -= damage;
+
+        // is stunned so start a routine
+        if (_health <= 0)
+            StartCoroutine(HealthRoutine());
+    }
+    
+    private IEnumerator HealthRoutine()
+    {
+        yield return new WaitForSeconds(_stunTime);
+
+        Health = _originalHealth;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.name == "SuckTriggerObject")
+        {
+            if (_health <= 0)
+            {
+                _sucker = other.gameObject;
+                if (!_hasSuckStart)
+                {
+                    _suckStartPosition = transform.position;
+                    _hasSuckStart = true;
+                }
+                _isBeingSucked = true;
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        _isBeingSucked = false;
+    }
+
+    protected override void CustomUpdate()
+    {
+        if (_isBeingSucked)
         {
 
             //GetComponent<Rigidbody>().isKinematic = true;
-            transform.position = Vector3.Lerp(transform.position, sucker.transform.parent.position, Time.deltaTime);
-            float maxDistance = Vector3.Distance(sucker.transform.parent.position, suckStartPosition);
-            float currentDistance = Vector3.Distance(transform.position, sucker.transform.parent.position);
+            transform.position = Vector3.Lerp(transform.position, _sucker.transform.parent.position, Time.deltaTime);
+            float maxDistance = Vector3.Distance(_sucker.transform.parent.position, _suckStartPosition);
+            float currentDistance = Vector3.Distance(transform.position, _sucker.transform.parent.position);
             float scaleFactor = currentDistance / maxDistance;
             Vector3 scaleVector = new Vector3(scaleFactor, scaleFactor, scaleFactor);
             transform.localScale = scaleVector;
@@ -42,35 +94,10 @@ public class SuckableObject : MonoBehaviour
         else
         {
             //GetComponent<Rigidbody>().isKinematic = false;
-            transform.localScale = startScale;
-            hasSuckStart = false;
+            transform.localScale = _startScale;
+            _hasSuckStart = false;
         }
     }
 
-    public void SetDamage(float damage)
-    {
-        health -= damage;
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.name == "SuckTriggerObject")
-        {
-            if (health <= 0)
-            {
-                sucker = other.gameObject;
-                if (!hasSuckStart)
-                {
-                    suckStartPosition = transform.position;
-                    hasSuckStart = true;
-                }
-                isBeingSucked = true;
-            }
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        isBeingSucked = false;
-    }
+    protected override void CustomFixedUpdate() { }
 }

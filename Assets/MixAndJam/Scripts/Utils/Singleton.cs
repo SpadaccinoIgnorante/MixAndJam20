@@ -75,7 +75,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     /// So, this was made to be sure we're not creating that buggy ghost Model.
     /// </summary>
 
-     public virtual void OnDestroy()
+    public virtual void OnDestroy()
     {
         applicationIsQuitting = !Application.isLoadingLevel;
         _instance = null;
