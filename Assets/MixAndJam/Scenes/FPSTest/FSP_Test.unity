@@ -8,8 +8,9 @@ OcclusionCullingSettings:
     smallestOccluder: 5
     smallestHole: 0.25
     backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
+  m_SceneGUID: f8c3f6cd3ea3a8e43b64857d0a0538a3
+  m_OcclusionCullingData: {fileID: 36300000, guid: ce1ad64ebbdd90d43aaa21e8261bfa72,
+    type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -1150,7 +1151,7 @@ PrefabInstance:
     - target: {fileID: 4693367259051213693, guid: e233fbc2cf524ae43a640bc618fc385b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4693367259051213693, guid: e233fbc2cf524ae43a640bc618fc385b,
         type: 3}
@@ -4376,7 +4377,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1117897740
 GameObject:
@@ -4800,7 +4801,7 @@ Transform:
   - {fileID: 2009624365}
   - {fileID: 1337578324}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1240556322
 GameObject:
@@ -6270,7 +6271,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1604695751
 GameObject:
@@ -6506,7 +6507,7 @@ PrefabInstance:
     - target: {fileID: 1890663241574911031, guid: 8162576bcdab5124581e7d9d89031fed,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1890663241574911031, guid: 8162576bcdab5124581e7d9d89031fed,
         type: 3}
@@ -7179,6 +7180,81 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb4a40fc64146a45b80534681dce2c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1874962963
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1874962965}
+  - component: {fileID: 1874962964}
+  m_Layer: 0
+  m_Name: OrderManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1874962964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874962963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d15d854d22c74d4a904e9f8021e539d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orderPrefab: {fileID: 6020643071899626225, guid: 1234d976be2d6de4e9cb3b848a57812e,
+    type: 3}
+  positions:
+  - hasOrder: 0
+    position: {x: 0, y: 0, z: 0}
+  - hasOrder: 0
+    position: {x: 0.35, y: 0, z: 0}
+  - hasOrder: 0
+    position: {x: 0.7, y: 0, z: 0}
+  - hasOrder: 0
+    position: {x: 1.05, y: 0, z: 0}
+  - hasOrder: 0
+    position: {x: 1.4, y: 0, z: 0}
+  orderSets:
+  - meat: 1
+    tomato: 1
+    lettuce: 1
+    potato: 1
+    egg: 1
+    cheddar: 1
+  - meat: 5
+    tomato: 4
+    lettuce: 0
+    potato: 0
+    egg: 21
+    cheddar: 0
+  - meat: 1
+    tomato: 0
+    lettuce: 0
+    potato: 0
+    egg: 0
+    cheddar: 0
+--- !u!4 &1874962965
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874962963}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1886723464
 GameObject:
   m_ObjectHideFlags: 0
@@ -7351,7 +7427,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1901571441
 GameObject:
