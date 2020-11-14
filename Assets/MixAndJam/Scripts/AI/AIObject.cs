@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.AI;
+using DG.Tweening;
 
 // TODO : Controllare che l'escape point successivo non sia stato già preso
 
@@ -27,6 +28,8 @@ public class AIObject : BehaviourBase
     private float _escapePointRadius = 0;
     [SerializeField]
     private LayerMask _pMask;
+    [SerializeField]
+    private float _rotationSpeed = 0;
     [SerializeField]
     private float _thresholdDirection;
 
@@ -100,6 +103,7 @@ public class AIObject : BehaviourBase
         {
             _currentPoint = GetRandomPoint(GetPointsByDistance(_escapePointRadius), dir);
 
+            //transform.LookAt(_currentPoint.transform,Vector3.up);
             _agent.SetDestination(_currentPoint.transform.position);
 
             Debug.DrawRay(_playerTrigger.transform.position, -dir * 5, Color.green);
@@ -108,6 +112,7 @@ public class AIObject : BehaviourBase
             var pointDir = (_currentPoint.transform.position - transform.position).normalized;
 
             Debug.DrawRay(transform.position, pointDir, Color.red);
+            Debug.Break();
         }
     }
 
