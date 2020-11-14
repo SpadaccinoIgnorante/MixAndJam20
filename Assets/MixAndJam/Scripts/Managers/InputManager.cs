@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
 
-public class InputManager : MonoBehaviour
+public class InputManager : Singleton<InputManager>
 {
-    public static InputManager instance;
-
     public static float hRightAxis;
     public static float vRightAxis;
     public static float hLeftAxis;
@@ -29,9 +27,6 @@ public class InputManager : MonoBehaviour
 
     public void Awake()
     {
-        if (instance == null) { instance = this; }
-        else if(instance != null) { Destroy(gameObject); }
-
         DontDestroyOnLoad(gameObject);
 
         playerControls = ReInput.players.GetPlayer(0);
