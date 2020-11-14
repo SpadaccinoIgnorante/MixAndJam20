@@ -112,7 +112,7 @@ public class AIObject : BehaviourBase
             var pointDir = (_currentPoint.transform.position - transform.position).normalized;
 
             Debug.DrawRay(transform.position, pointDir, Color.red);
-            Debug.Break();
+           // Debug.Break();
         }
     }
 
