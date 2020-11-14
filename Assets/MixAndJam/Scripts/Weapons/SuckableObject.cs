@@ -29,7 +29,6 @@ public class SuckableObject : MonoBehaviour
         {
             GetComponent<Rigidbody>().isKinematic = false;
             transform.localScale = Vector3.one;
-            weaponsManager = null;
         }
     }
 
