@@ -5,7 +5,7 @@ using UnityEngine;
 public class IconAlert : MonoBehaviour
 {
     [SerializeField]
-    private float _viewSeconds;
+    private float _viewSeconds = 0;
     
     private SpriteRenderer _sprite;
 

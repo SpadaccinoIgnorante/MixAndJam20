@@ -22,9 +22,9 @@ public class AIObject : BehaviourBase
     [SerializeField]
     private AITrigger _playerTrigger;
     [SerializeField]
-    private float _alertRadius;
+    private float _alertRadius = 0;
     [SerializeField]
-    private float _escapePointRadius;
+    private float _escapePointRadius = 0;
     [SerializeField]
     private LayerMask _pMask;
 
