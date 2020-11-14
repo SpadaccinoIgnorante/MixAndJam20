@@ -12,6 +12,8 @@ public abstract class BehaviourBase : MonoBehaviour
 
     protected virtual void OnDestroy()
     {
+        if (!MJGameManager.IsInstanced())
+            return;
         MJGameManager.Instance.OnUpdate -= CustomUpdate;
         MJGameManager.Instance.OnFixedUpdate -= CustomFixedUpdate;
     }

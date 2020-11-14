@@ -42,6 +42,8 @@ public class AIObject : BehaviourBase
     private EscapePoint _previousPoint;
     [SerializeField]
     private bool _drawGizmos;
+    [SerializeField]
+    private bool _isStunned;
 
     private Vector3 _prevLocation;
 
@@ -58,9 +60,21 @@ public class AIObject : BehaviourBase
             _escapePoints.Add(point);
     }
 
+    public virtual void OnStun(float value)
+    {
+        _isStunned = value <= 0;
+
+        if (_isStunned)
+        {
+            _agent.isStopped = true;
+        }
+        else if (_agent.isStopped && !_isStunned)
+            _agent.isStopped = false;
+    }
+
     protected override void CustomFixedUpdate()
     {
-        //if (!IsRunCompleted()) return;
+        if (_isStunned) return;
 
         var layer = _pMask.value;
 
@@ -72,6 +86,8 @@ public class AIObject : BehaviourBase
 
     protected override void CustomUpdate()
     {
+        if (_isStunned) return;
+
         if (IsRunCompleted() && _currentPoint != null)
         {
             _previousPoint = _currentPoint;

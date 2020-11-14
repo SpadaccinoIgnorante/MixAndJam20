@@ -16,9 +16,11 @@ public class MJGameManager : Singleton<MJGameManager>
         OnFixedUpdate?.Invoke();   
     }
 
-    private void OnDestroy()
+    public override void OnDestroy()
     {
         OnFixedUpdate = null;
         OnUpdate = null;
+
+        base.OnDestroy();
     }
 }
