@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.AI;
 using DG.Tweening;
 
 public class WeaponsManager : BehaviourBase
@@ -27,16 +28,12 @@ public class WeaponsManager : BehaviourBase
     [Header("Sucking Settings")]
 
     public GameObject suckTrigger;
+    public Transform suckPoint;
     [SerializeField]
     private bool _canTakeEnemy;
     [SerializeField]
     private bool _isSuckButtonPressed;
-    private Vector3 _startSuckingPos;
     private SuckableObject _objectToSuck;
-    [SerializeField]
-    private float _suckTimer;
-    [SerializeField]
-    private float _suckReload;
 
     public float _suckRadius = 1;
 
@@ -96,7 +93,18 @@ public class WeaponsManager : BehaviourBase
 
             if (colls.Length < 0) return;
 
-            _objectToSuck = colls.ToList().Find(c => c.gameObject.GetComponent<SuckableObject>().IsStunned)?.GetComponent<SuckableObject>();
+            _objectToSuck = colls.ToList().Find(c => c.gameObject.GetComponent<SuckableObject>())?.GetComponent<SuckableObject>();
+
+            if (_objectToSuck.IsStunned)
+            {
+                _objectToSuck.transform.position = Vector3.Lerp(_objectToSuck.transform.position, suckPoint.position, Time.deltaTime);
+                _objectToSuck.transform.localScale = Vector3.Lerp(_objectToSuck.transform.localScale, Vector3.zero, Time.deltaTime);
+
+                if (_objectToSuck.transform.localScale.x <= 0.1f)
+                {
+                    Destroy(_objectToSuck.gameObject);
+                }
+            }
         }
     }
 
