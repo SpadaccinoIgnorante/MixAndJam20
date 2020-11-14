@@ -96,7 +96,6 @@ public class AIObject : BehaviourBase
         if (IsRunCompleted() && _currentPoint != null)
         {
             _agent.isStopped = true;
-            //_agent.Move(Vector3.zero);
             _agent.velocity = Vector3.zero;
             _agent.acceleration = 0;
             
@@ -173,12 +172,9 @@ public class AIObject : BehaviourBase
 
             var pointDir = (p.transform.position - transform.position).normalized;
 
-            Debug.Log(p.name + " " + Vector3.Dot(playerDir, pointDir),p.gameObject);
-
             if (Vector3.Dot(playerDir, pointDir) > _thresholdDirection)
             {
                 Debug.DrawRay(transform.position, pointDir, Color.yellow);
-                Debug.Log("La direzione non è opposta",p.gameObject);
                 continue;
             }
 
