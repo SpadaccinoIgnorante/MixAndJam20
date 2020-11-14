@@ -97,7 +97,7 @@ public class WeaponsManager : BehaviourBase
 
             if (_objectToSuck.IsStunned)
             {
-                _objectToSuck.transform.position = Vector3.Lerp(_objectToSuck.transform.position, suckPoint.position, Time.deltaTime);
+                _objectToSuck.transform.position = Vector3.Lerp(_objectToSuck.transform.position, suckPoint.position, Time.deltaTime * 10);
                 _objectToSuck.transform.localScale = Vector3.Lerp(_objectToSuck.transform.localScale, Vector3.zero, Time.deltaTime);
 
                 if (_objectToSuck.transform.localScale.x <= 0.1f)
