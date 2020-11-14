@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class CameraLook : MonoBehaviour
 {
-    public float mouseSensitivity = 10f;
+    public float xMouseSensitivity = 10f;
+    public float yMouseSensitivity = 10f;
+    public float hControllerSensitivity = 10f;
+    public float vControllerSensitivity = 10f;
 
     public Transform player;
 
@@ -18,8 +21,17 @@ public class CameraLook : MonoBehaviour
 
     private void Update()
     {
-        float mouseX = InputManager.hRightAxis * Time.deltaTime * mouseSensitivity;
-        float mouseY = InputManager.vRightAxis * Time.deltaTime * mouseSensitivity;
+        float mouseX = 0, mouseY = 0;
+        if (InputManager.isUsingController())
+        {
+            mouseX = InputManager.hRightAxis * Time.deltaTime * hControllerSensitivity;
+            mouseY = InputManager.vRightAxis * Time.deltaTime * vControllerSensitivity;
+        }
+        else
+        {
+            mouseX = InputManager.hRightAxis * Time.deltaTime * xMouseSensitivity;
+            mouseY = InputManager.vRightAxis * Time.deltaTime * yMouseSensitivity;
+        }
 
         xRotation -= mouseY;
 
