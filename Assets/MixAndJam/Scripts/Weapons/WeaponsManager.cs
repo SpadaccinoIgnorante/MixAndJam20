@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class WeaponsManager : MonoBehaviour
 {
+    [Header("Shoot")]
     public GameObject bulletPrefab;
 
     public Transform firingPoint;
-    public GameObject suckTrigger;
 
     public float shootForce = 10;
     public int ammo;
     public float firingTime;
     public float reloadTime;
+
+    [Header("Sucking")]
+    public GameObject suckTrigger;
 
     public float suckLength = 1;
     public float suckXRadius = 1;

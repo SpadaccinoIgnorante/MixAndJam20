@@ -20,7 +20,7 @@ public class SuckableObject : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, sucker.transform.parent.position, Time.deltaTime);
             transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, Time.deltaTime);
 
-            if (transform.localScale.x <= 0.1f)
+            if (transform.localScale.x <= 0.01f)
             {
                 Destroy(gameObject);
             }
@@ -29,6 +29,7 @@ public class SuckableObject : MonoBehaviour
         {
             GetComponent<Rigidbody>().isKinematic = false;
             transform.localScale = Vector3.one;
+            weaponsManager = null;
         }
     }
 
