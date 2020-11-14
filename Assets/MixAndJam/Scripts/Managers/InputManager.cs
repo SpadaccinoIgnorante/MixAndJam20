@@ -24,12 +24,14 @@ public class InputManager : Singleton<InputManager>
     private const string RIGHT_TRIGGER = "Shoot";
 
     private Player playerControls;
+    private static Player playerControlsStatic;
 
     public void Awake()
     {
         DontDestroyOnLoad(gameObject);
 
         playerControls = ReInput.players.GetPlayer(0);
+        playerControlsStatic = ReInput.players.GetPlayer(0);
     }
 
     private void Update()
@@ -42,6 +44,37 @@ public class InputManager : Singleton<InputManager>
         rTrigger = playerControls.GetButton(RIGHT_TRIGGER);
         lTrigger = playerControls.GetButton(LEFT_TRIGGER);
         jump = playerControls.GetButtonDown(JUMP_ACTION);
+    }
+
+    public static bool isUsingController()
+    {
+        bool result = false;
+        // Get last controller from a Player and the determine the type of controller being used
+        Controller controller = playerControlsStatic.controllers.GetLastActiveController();
+        if (controller != null)
+        {
+            switch (controller.type)
+            {
+                case ControllerType.Keyboard:
+                    // Do something for keyboard
+                    result = false;
+                    break;
+                case ControllerType.Joystick:
+                    // Do something for joystick
+                    result = true;
+                    break;
+                case ControllerType.Mouse:
+                    // Do something for mouse
+                    result = false;
+                    break;
+                case ControllerType.Custom:
+                    // Do something custom controller
+                    result = true;
+                    break;
+            }
+        }
+
+        return result;
     }
 
 }

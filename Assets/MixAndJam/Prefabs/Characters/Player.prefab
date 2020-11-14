@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 1890663240462763437}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -280,7 +280,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1890663240591919595}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0.000000059604638, z: -0, w: 1}
   m_LocalPosition: {x: 0.5, y: -0.5, z: 1}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
@@ -297,7 +297,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1890663240993354111}
   - component: {fileID: 1890663240993354108}
-  - component: {fileID: 1890663240993354109}
   - component: {fileID: 1890663240993354110}
   m_Layer: 0
   m_Name: WeaponsCamera
@@ -363,14 +362,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1890663240993354109
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1890663240993354096}
-  m_Enabled: 1
 --- !u!114 &1890663240993354110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -620,7 +611,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47d2ab7ca3f93f498e960f04db49a85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 10
+  xMouseSensitivity: 10
+  yMouseSensitivity: 10
+  hControllerSensitivity: 300
+  vControllerSensitivity: 300
   player: {fileID: 1890663241574911031}
 --- !u!1 &1890663241574911178
 GameObject:
@@ -717,6 +711,7 @@ MonoBehaviour:
   firingTime: 0.2
   reloadTime: 5
   suckTrigger: {fileID: 1890663241267451485}
+  suckPoint: {fileID: 569907260065060717}
   _canTakeEnemy: 0
   _isSuckButtonPressed: 0
   _suckRadius: 4
@@ -777,7 +772,7 @@ GameObject:
   m_Component:
   - component: {fileID: 569907260065060717}
   m_Layer: 8
-  m_Name: GameObject
+  m_Name: SuckPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

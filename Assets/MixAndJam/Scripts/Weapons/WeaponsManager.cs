@@ -98,7 +98,7 @@ public class WeaponsManager : BehaviourBase
             if (_objectToSuck.IsStunned)
             {
                 _objectToSuck.transform.position = Vector3.Lerp(_objectToSuck.transform.position, suckPoint.position, Time.deltaTime * 10);
-                _objectToSuck.transform.localScale = Vector3.Lerp(_objectToSuck.transform.localScale, Vector3.zero, Time.deltaTime);
+                _objectToSuck.transform.localScale = Vector3.Lerp(_objectToSuck.transform.localScale, Vector3.zero, Time.deltaTime* 3);
 
                 if (_objectToSuck.transform.localScale.x <= 0.1f)
                 {
@@ -139,6 +139,7 @@ public class WeaponsManager : BehaviourBase
             {
                 if (firingTimer <= 0)
                 {
+                    float alpha = Vector3.Dot(firingPoint.position, Camera.main.transform.position);
                     GameObject bullet = Instantiate(bulletPrefab, firingPoint.position, firingPoint.rotation);
                     bullet.GetComponent<Rigidbody>().velocity = firingPoint.TransformDirection(Vector3.forward * shootForce);
                     firingTimer = firingTime;
