@@ -3,17 +3,26 @@ using UnityEngine;
 
 public class MJGameManager : Singleton<MJGameManager>
 {
+    public bool IsPaused { get; private set; }
+
+    public Action OnPauseUpdate;
     public Action OnUpdate;
     public Action OnFixedUpdate;
     
     private void Update()
     {
-        OnUpdate?.Invoke();
+        // if premo start IsPaused = !IsPaused;
+
+        if (!IsPaused)
+            OnUpdate?.Invoke();
+        else
+            OnPauseUpdate?.Invoke();
     }
 
     private void FixedUpdate()
     {
-        OnFixedUpdate?.Invoke();   
+        if(!IsPaused)
+            OnFixedUpdate?.Invoke();   
     }
 
     public override void OnDestroy()
@@ -22,5 +31,10 @@ public class MJGameManager : Singleton<MJGameManager>
         OnUpdate = null;
 
         base.OnDestroy();
+    }
+
+    public void PauseUnpause()
+    {
+        IsPaused = !IsPaused;
     }
 }
