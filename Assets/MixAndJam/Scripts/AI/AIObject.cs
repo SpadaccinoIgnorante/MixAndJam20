@@ -27,6 +27,8 @@ public class AIObject : BehaviourBase
     private float _escapePointRadius = 0;
     [SerializeField]
     private LayerMask _pMask;
+    [SerializeField]
+    private float _thresholdDirection;
 
     [Space(10)]
     [Header("Debug")]
@@ -36,6 +38,10 @@ public class AIObject : BehaviourBase
     private bool _isAlerted;
     [SerializeField]
     private EscapePoint _currentPoint;
+    [SerializeField]
+    private EscapePoint _previousPoint;
+    [SerializeField]
+    private bool _drawGizmos;
 
     private Vector3 _prevLocation;
 
@@ -66,19 +72,26 @@ public class AIObject : BehaviourBase
 
     protected override void CustomUpdate()
     {
-        if (IsRunCompleted())
-            _currentPoint = null;
-
-        if (IsAlerted)
+        if (IsRunCompleted() && _currentPoint != null)
         {
-            if (_currentPoint != null) return;
+            _previousPoint = _currentPoint;
+            _currentPoint = null;
+        }
 
-            Vector3 dir = GetPlayerDirection();
+        Vector3 dir = GetPlayerDirection();
 
-            var angle = Vector3.Angle(_playerTrigger.transform.position, dir);
+        if (IsAlerted && _currentPoint == null)
+        {
+            _currentPoint = GetRandomPoint(GetPointsByDistance(_escapePointRadius), dir);
 
-            _currentPoint = GetRandomPoint(GetPointsByDistance(_escapePointRadius));
             _agent.SetDestination(_currentPoint.transform.position);
+
+            Debug.DrawRay(_playerTrigger.transform.position, -dir * 5, Color.green);
+
+            Debug.Log($"Punto scelto {_currentPoint.name} ");
+            var pointDir = (_currentPoint.transform.position - transform.position).normalized;
+
+            Debug.DrawRay(transform.position, pointDir, Color.red);
         }
     }
 
@@ -119,36 +132,53 @@ public class AIObject : BehaviourBase
             IsAlerted = true;
     }
 
-    protected virtual EscapePoint GetRandomPoint(List<EscapePoint> points)
+    protected virtual EscapePoint GetRandomPoint(List<EscapePoint> points,Vector3 playerDir)
     {
         List<EscapePoint> possiblePoints = new List<EscapePoint>();
 
         foreach (var p in points)
         {
-            //var angle = Vector3.Angle(_playerTrigger.transform.position, dir);
+            if (_previousPoint == p) continue;
 
-            var pointDistance = Vector3.Distance(transform.position, p.transform.position);
+            var pointDir = (p.transform.position - transform.position).normalized;
 
-            Debug.Log(p.name + " " + pointDistance);
+            Debug.Log(p.name + " " + Vector3.Dot(playerDir, pointDir),p.gameObject);
 
-            if (pointDistance < 3.25f) continue;
+            if (Vector3.Dot(playerDir, pointDir) > _thresholdDirection)
+            {
+                Debug.DrawRay(transform.position, pointDir, Color.yellow);
+                Debug.Log("La direzione non è opposta",p.gameObject);
+                continue;
+            }
+
+            Debug.DrawRay(transform.position, pointDir, Color.cyan);
 
             possiblePoints.Add(p);
         }
 
-        return possiblePoints[UnityEngine.Random.Range(0, possiblePoints.Count)];
+        if (possiblePoints.Count <= 0)
+        {
+            var tempPoints = points.FindAll(p => p != _previousPoint);
+            return tempPoints.Count <= 0 ? 
+                   _escapePoints.FindAll(p => p != _previousPoint && p != _currentPoint)[0] : 
+                   tempPoints[Random.Range(0, tempPoints.Count)];
+        }
+
+        return possiblePoints[Random.Range(0, possiblePoints.Count)];
     }
 
     protected virtual Vector3 GetPlayerDirection()
     {
         var diff = (_playerTrigger.transform.position - _prevLocation).normalized;
         _prevLocation = transform.position;
-        return -diff;
+        return diff;
     }
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
+        if(!_drawGizmos)return;
+
         Gizmos.color = Color.blue;
         Gizmos.DrawSphere(transform.position, _escapePointRadius);
         Gizmos.color = Color.red;

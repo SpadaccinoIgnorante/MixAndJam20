@@ -15,4 +15,10 @@ public class MJGameManager : Singleton<MJGameManager>
     {
         OnFixedUpdate?.Invoke();   
     }
+
+    private void OnDestroy()
+    {
+        OnFixedUpdate = null;
+        OnUpdate = null;
+    }
 }
