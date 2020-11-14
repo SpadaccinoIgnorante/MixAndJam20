@@ -21,14 +21,14 @@ public class OrdersManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            GameObject orderObject = Instantiate(orderPrefab, lastOrderPosition, Quaternion.identity);
+            GameObject orderObject = Instantiate(orderPrefab, lastOrderPosition, Quaternion.Euler(0, 90, -90));
             int orderIndex = Random.Range(0, orderSets.Count);
             OrderSet currentOrder = orderSets[orderIndex];
             orderObject.GetComponent<OrderPaper>().Init(lastOrder, 0, currentOrder.meat, currentOrder.tomato, currentOrder.lettuce, currentOrder.potato, currentOrder.egg, currentOrder.cheddar);
             activeOrders.Add(orderObject.GetComponent<OrderPaper>());
 
             // Set new position
-            Vector3 newOrderPosition = new Vector3(lastOrderPosition.x + 1, lastOrderPosition.y, lastOrderPosition.z);
+            Vector3 newOrderPosition = new Vector3(lastOrderPosition.x + 0.35f, lastOrderPosition.y, lastOrderPosition.z);
             lastOrderPosition = newOrderPosition;
 
             //

@@ -79,7 +79,7 @@ public class SuckableObject : BehaviourBase
 
         if (_isBeingSucked)
         {
-
+            Debug.Log("Debug Test Suck");
             //GetComponent<Rigidbody>().isKinematic = true;
             transform.position = Vector3.Lerp(transform.position, _sucker.transform.parent.position, Time.deltaTime);
             float maxDistance = Vector3.Distance(_sucker.transform.parent.position, _suckStartPosition);
