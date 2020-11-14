@@ -49,15 +49,18 @@ public class AIObject : BehaviourBase
     private bool _isStunned;
 
     private Vector3 _prevLocation;
+    private float _originalAcceleration;
 
     protected override void Awake()
     {
-        if(_agent)
+        base.Awake();
+
+        if (_agent)
             _agent = GetComponent<NavMeshAgent>();
         if (_playerTrigger == null)
             _playerTrigger = FindObjectOfType<AITrigger>();
 
-        base.Awake();
+        _originalAcceleration = _agent.acceleration;
 
         foreach (var point in FindObjectsOfType<EscapePoint>())
             _escapePoints.Add(point);
@@ -68,15 +71,10 @@ public class AIObject : BehaviourBase
         _isStunned = value <= 0;
 
         if (_isStunned)
-        {
             _agent.isStopped = true;
-            _agent.enabled = false;
-        }
+
         else if (_agent.isStopped && !_isStunned)
-        {
             _agent.isStopped = false;
-            _agent.enabled = true;
-        }
     }
 
     protected override void CustomFixedUpdate()
@@ -97,6 +95,11 @@ public class AIObject : BehaviourBase
 
         if (IsRunCompleted() && _currentPoint != null)
         {
+            _agent.isStopped = true;
+            //_agent.Move(Vector3.zero);
+            _agent.velocity = Vector3.zero;
+            _agent.acceleration = 0;
+            
             _previousPoint = _currentPoint;
             _currentPoint = null;
         }
@@ -105,23 +108,27 @@ public class AIObject : BehaviourBase
 
         if (IsAlerted && _currentPoint == null)
         {
+            _agent.isStopped = false;
+            _agent.acceleration = _originalAcceleration;
+
             _currentPoint = GetRandomPoint(GetPointsByDistance(_escapePointRadius), dir);
 
+            transform.DOLookAt(_currentPoint.transform.position,_rotationSpeed);
             _agent.SetDestination(_currentPoint.transform.position);
 
             Debug.DrawRay(_playerTrigger.transform.position, -dir * 5, Color.green);
 
-            Debug.Log($"Punto scelto {_currentPoint.name} ");
             var pointDir = (_currentPoint.transform.position - transform.position).normalized;
 
             Debug.DrawRay(transform.position, pointDir, Color.red);
-            Debug.Break();
         }
     }
 
     protected virtual bool IsRunCompleted()
     {
-        return _agent.remainingDistance <= _agent.stoppingDistance + 0.1f;
+        if (_isStunned) return false;
+
+        return _agent.remainingDistance <= _agent.stoppingDistance;
     }
 
     protected List<EscapePoint> GetPointsByDistance(float distance)

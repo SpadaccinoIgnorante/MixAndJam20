@@ -747,6 +747,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 285832261, guid: e233fbc2cf524ae43a640bc618fc385b, type: 3}
+      propertyPath: m_Acceleration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 285832261, guid: e233fbc2cf524ae43a640bc618fc385b, type: 3}
+      propertyPath: m_Speed
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 285832261, guid: e233fbc2cf524ae43a640bc618fc385b, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 285832261, guid: e233fbc2cf524ae43a640bc618fc385b, type: 3}
+      propertyPath: m_AutoBraking
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 285832262, guid: e233fbc2cf524ae43a640bc618fc385b, type: 3}
       propertyPath: _playerTrigger
       value: 
