@@ -11,14 +11,20 @@ public class SuckableObject : MonoBehaviour
 
     private GameObject sucker;
     private bool hasSuckStart;
+    Vector3 startScale;
     Vector3 suckStartPosition;
+
+    private void Awake()
+    {
+        startScale = transform.localScale;
+    }
 
     private void Update()
     {
         if (isBeingSucked)
         {
 
-            GetComponent<Rigidbody>().isKinematic = true;
+            //GetComponent<Rigidbody>().isKinematic = true;
             transform.position = Vector3.Lerp(transform.position, sucker.transform.parent.position, Time.deltaTime);
             float maxDistance = Vector3.Distance(sucker.transform.parent.position, suckStartPosition);
             float currentDistance = Vector3.Distance(transform.position, sucker.transform.parent.position);
@@ -35,8 +41,8 @@ public class SuckableObject : MonoBehaviour
         }
         else
         {
-            GetComponent<Rigidbody>().isKinematic = false;
-            transform.localScale = Vector3.one;
+            //GetComponent<Rigidbody>().isKinematic = false;
+            transform.localScale = startScale;
             hasSuckStart = false;
         }
     }
