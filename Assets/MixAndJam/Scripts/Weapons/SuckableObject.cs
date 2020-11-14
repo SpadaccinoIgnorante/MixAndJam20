@@ -10,6 +10,8 @@ public class SuckableObject : MonoBehaviour
     private bool isBeingSucked = false;
 
     private GameObject sucker;
+    private bool hasSuckStart;
+    Vector3 suckStartPosition;
 
     private void Update()
     {
@@ -18,9 +20,15 @@ public class SuckableObject : MonoBehaviour
 
             GetComponent<Rigidbody>().isKinematic = true;
             transform.position = Vector3.Lerp(transform.position, sucker.transform.parent.position, Time.deltaTime);
-            transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, Time.deltaTime);
+            float maxDistance = Vector3.Distance(sucker.transform.parent.position, suckStartPosition);
+            float currentDistance = Vector3.Distance(transform.position, sucker.transform.parent.position);
+            float scaleFactor = currentDistance / maxDistance;
+            Vector3 scaleVector = new Vector3(scaleFactor, scaleFactor, scaleFactor);
+            transform.localScale = scaleVector;
 
-            if (transform.localScale.x <= 0.01f)
+            //transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, Time.deltaTime);
+
+            if (transform.localScale.x <= 0.05f)
             {
                 Destroy(gameObject);
             }
@@ -29,6 +37,7 @@ public class SuckableObject : MonoBehaviour
         {
             GetComponent<Rigidbody>().isKinematic = false;
             transform.localScale = Vector3.one;
+            hasSuckStart = false;
         }
     }
 
@@ -44,8 +53,18 @@ public class SuckableObject : MonoBehaviour
             if (health <= 0)
             {
                 sucker = other.gameObject;
+                if (!hasSuckStart)
+                {
+                    suckStartPosition = transform.position;
+                    hasSuckStart = true;
+                }
                 isBeingSucked = true;
             }
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        isBeingSucked = false;
     }
 }
