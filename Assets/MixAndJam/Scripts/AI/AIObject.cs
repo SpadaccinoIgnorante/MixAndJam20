@@ -71,10 +71,15 @@ public class AIObject : BehaviourBase
         _isStunned = value <= 0;
 
         if (_isStunned)
+        {
             _agent.isStopped = true;
-
+            _agent.enabled = false;
+        }
         else if (_agent.isStopped && !_isStunned)
+        {
+            _agent.enabled = true;
             _agent.isStopped = false;
+        }
     }
 
     protected override void CustomFixedUpdate()
