@@ -13,6 +13,7 @@ public class InputManager : Singleton<InputManager>
     public static bool rTrigger;
     public static bool interact;
     public static bool jump;
+    public static bool pause;
 
     private const string INTERACT_ACTION = "Interact";
     private const string JUMP_ACTION = "Jump";
@@ -22,6 +23,7 @@ public class InputManager : Singleton<InputManager>
     private const string VERTICAL_RIGHT_AXIS = "VerticalLook";
     private const string LEFT_TRIGGER = "Absorb";
     private const string RIGHT_TRIGGER = "Shoot";
+    private const string PAUSE = "Pause";
 
     private Player playerControls;
     private static Player playerControlsStatic;
@@ -44,6 +46,7 @@ public class InputManager : Singleton<InputManager>
         rTrigger = playerControls.GetButton(RIGHT_TRIGGER);
         lTrigger = playerControls.GetButton(LEFT_TRIGGER);
         jump = playerControls.GetButtonDown(JUMP_ACTION);
+        pause = playerControls.GetButtonDown(PAUSE);
     }
 
     public static bool isUsingController()
