@@ -11,8 +11,8 @@ public class InputManager : MonoBehaviour
     public static float vRightAxis;
     public static float hLeftAxis;
     public static float vLeftAxis;
-    public static float lTrigger;
-    public static float rTrigger;
+    public static bool lTrigger;
+    public static bool rTrigger;
     public static bool interact;
     public static bool jump;
 
@@ -44,8 +44,8 @@ public class InputManager : MonoBehaviour
         vRightAxis = playerControls.GetAxis(VERTICAL_RIGHT_AXIS);
         hLeftAxis = playerControls.GetAxis(HORIZONTAL_LEFT_AXIS);
         vLeftAxis = playerControls.GetAxis(VERTICAL_LEFT_AXIS);
-        rTrigger = playerControls.GetAxis(RIGHT_TRIGGER);
-        lTrigger = playerControls.GetAxis(LEFT_TRIGGER);
+        rTrigger = playerControls.GetButton(RIGHT_TRIGGER);
+        lTrigger = playerControls.GetButton(LEFT_TRIGGER);
         jump = playerControls.GetButtonDown(JUMP_ACTION);
     }
 
