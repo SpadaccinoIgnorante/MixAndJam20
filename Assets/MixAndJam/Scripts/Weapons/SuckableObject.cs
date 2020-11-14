@@ -25,6 +25,8 @@ public class SuckableObject : BehaviourBase
 
     protected override void Awake()
     {
+        base.Awake();
+
         _originalHealth = _health;
         _startScale = transform.localScale;
     }
@@ -73,6 +75,8 @@ public class SuckableObject : BehaviourBase
 
     protected override void CustomUpdate()
     {
+        Debug.Log("Test suck");
+
         if (_isBeingSucked)
         {
 
