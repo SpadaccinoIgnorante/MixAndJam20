@@ -34,7 +34,7 @@ public class OrderPaper : MonoBehaviour
 
         if (meatQuantity > 0)
         {
-            meatQuantityText.text = $"x {meatQuantity}";
+            meatQuantityText.text = $"X {meatQuantity}";
         }
         else
         {
@@ -43,7 +43,7 @@ public class OrderPaper : MonoBehaviour
 
         if (tomatoQuantity > 0)
         {
-            tomatoQuantityText.text = $"x {tomatoQuantity}";
+            tomatoQuantityText.text = $"X {tomatoQuantity}";
         }
         else
         {
@@ -52,7 +52,7 @@ public class OrderPaper : MonoBehaviour
 
         if (lettuceQuantity > 0)
         {
-            lettuceQuantityText.text = $"x {lettuceQuantity}";
+            lettuceQuantityText.text = $"X {lettuceQuantity}";
         }
         else
         {
@@ -61,7 +61,7 @@ public class OrderPaper : MonoBehaviour
 
         if (potatoQuantity > 0)
         {
-            potatoQuantityText.text = $"x {potatoQuantity}";
+            potatoQuantityText.text = $"X {potatoQuantity}";
         }
         else
         {
@@ -70,7 +70,7 @@ public class OrderPaper : MonoBehaviour
 
         if (eggQuantity > 0)
         {
-            eggQuantityText.text = $"x {eggQuantity}";
+            eggQuantityText.text = $"X {eggQuantity}";
         }
         else
         {
@@ -79,7 +79,7 @@ public class OrderPaper : MonoBehaviour
 
         if (cheddarQuantity > 0)
         {
-            cheddarQuantityText.text = $"x {cheddarQuantity}";
+            cheddarQuantityText.text = $"X {cheddarQuantity}";
         }
         else
         {
