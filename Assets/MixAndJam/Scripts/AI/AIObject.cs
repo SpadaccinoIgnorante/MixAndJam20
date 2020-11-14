@@ -70,9 +70,13 @@ public class AIObject : BehaviourBase
         if (_isStunned)
         {
             _agent.isStopped = true;
+            _agent.enabled = false;
         }
         else if (_agent.isStopped && !_isStunned)
+        {
             _agent.isStopped = false;
+            _agent.enabled = true;
+        }
     }
 
     protected override void CustomFixedUpdate()
@@ -103,7 +107,6 @@ public class AIObject : BehaviourBase
         {
             _currentPoint = GetRandomPoint(GetPointsByDistance(_escapePointRadius), dir);
 
-            //transform.LookAt(_currentPoint.transform,Vector3.up);
             _agent.SetDestination(_currentPoint.transform.position);
 
             Debug.DrawRay(_playerTrigger.transform.position, -dir * 5, Color.green);
