@@ -49,7 +49,7 @@ public class SpawnManager : BehaviourBase
     private void Spawn()
     {
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-        GameObject ingredient = Instantiate(ingredientPrefab, spawnPoint.position, spawnPoint.rotation, ranch);
+        GameObject ingredient = Instantiate(ingredientPrefab, spawnPoint.position - new Vector3(0, 3, 0), spawnPoint.rotation, ranch);
         ingredient.GetComponent<SuckableObject>().currentSpawner = this;
         OnGameObjectSpawned?.Invoke(ingredient);
         ingredientsPerScene++;

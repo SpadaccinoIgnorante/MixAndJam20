@@ -32,6 +32,8 @@ public class AIObject : BehaviourBase
     private float _rotationSpeed = 0;
     [SerializeField]
     private float _thresholdDirection;
+    [SerializeField]
+    private Animator aiAnimation;
 
     [Space(10)]
     [Header("Debug")]
@@ -103,7 +105,9 @@ public class AIObject : BehaviourBase
             _agent.isStopped = true;
             _agent.velocity = Vector3.zero;
             _agent.acceleration = 0;
-            
+
+            aiAnimation.SetBool("isRunning", false);
+
             _previousPoint = _currentPoint;
             _currentPoint = null;
         }
@@ -112,6 +116,8 @@ public class AIObject : BehaviourBase
 
         if (IsAlerted && _currentPoint == null)
         {
+            aiAnimation.SetBool("isRunning", true);
+
             _agent.isStopped = false;
             _agent.acceleration = _originalAcceleration;
 
@@ -130,7 +136,7 @@ public class AIObject : BehaviourBase
 
     protected virtual bool IsRunCompleted()
     {
-        if (_isStunned) return false;
+        if (_isStunned) return false; 
 
         return _agent.remainingDistance <= _agent.stoppingDistance;
     }
