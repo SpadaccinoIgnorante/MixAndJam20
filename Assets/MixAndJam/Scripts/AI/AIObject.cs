@@ -141,6 +141,7 @@ public class AIObject : BehaviourBase
         {
             aiAnimation.SetBool("isRunning", true);
             aiAnimation.SetBool("isWalking", false);
+            aiAnimation.SetBool("isStunned", false);
 
             OnStateChanged?.Invoke(AIState.Alerted);
 
@@ -236,6 +237,11 @@ public class AIObject : BehaviourBase
         {
             _isThinking = false;
             IsAlerted = true;
+
+            aiAnimation.SetBool("isRunning", true);
+            aiAnimation.SetBool("isWalking", false);
+            aiAnimation.SetBool("isStunned", false);
+
         }
     }
 
@@ -280,6 +286,9 @@ public class AIObject : BehaviourBase
 
     protected override void PauseChanged(bool pause)
     {
+        if (!pause)
+            aiAnimation.speed = 0;
+
         _agent.isStopped = pause;
     }
 
