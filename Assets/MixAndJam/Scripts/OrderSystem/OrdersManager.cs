@@ -99,9 +99,12 @@ public class OrdersManager : MonoBehaviour
             int orderIndex = Random.Range(0, orderSets.Count);
             OrderSet currentOrder = orderSets[orderIndex];
 
+            currentOrder.orderNumber = lastOrder + 1;
             tables[currentTable].currentOrder = currentOrder;
             tables[currentTable].hasOrder = true;
             tables[currentTable].tablePosition = currentPos;
+            tables[currentTable].tableNumber = currentTable;
+
             currentPosition.hasOrder = true;
 
             orderObject.GetComponent<OrderPaper>().Init(lastOrder + 1, currentTable += 1, currentOrder.meat, currentOrder.tomato, currentOrder.lettuce, currentOrder.potato, currentOrder.egg, currentOrder.cheddar); ;
@@ -129,6 +132,7 @@ public class OrdersManager : MonoBehaviour
     [System.Serializable]
     public class OrderSet
     {
+        public int orderNumber;
         public int meat;
         public int tomato;
         public int lettuce;
@@ -136,7 +140,7 @@ public class OrdersManager : MonoBehaviour
         public int egg;
         public int cheddar;
     }
-
+        
     [System.Serializable]
     public class OrderPosition
     {
@@ -150,5 +154,6 @@ public class OrdersManager : MonoBehaviour
         public bool hasOrder;
         public int tablePosition;
         public OrderSet currentOrder;
+        public int tableNumber;
     }
 }
