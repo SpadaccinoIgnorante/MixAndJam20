@@ -13,19 +13,25 @@ public class SuckableObject : BehaviourBase
     }
     public bool IsStunned { get; set; }
     public float StunTime => _stunTime;
-    public bool IsCatching { get; set; }
+    public bool IsCatching { get => _isCatching; set { _isCatching = value; CatchChanged(_isCatching); } }
     [SerializeField]
     private float _health;
     [SerializeField]
     private float _stunTime;
 
     private float _originalHealth;
+
     [HideInInspector]
     public SpawnManager currentSpawner;
+    
+    private bool _isCatching;
+    private Vector3 _originalScale;
 
     protected override void Awake()
     {
         base.Awake();
+
+        _originalScale = transform.localScale;
 
         _originalHealth = _health;
     }
@@ -48,7 +54,15 @@ public class SuckableObject : BehaviourBase
             StartCoroutine(HealthRoutine());
         }
     }
-    
+
+    private void CatchChanged(bool isCatch)
+    {
+        if (!isCatch)
+        {
+            transform.localScale = _originalScale;
+        }
+    }
+
     private IEnumerator HealthRoutine()
     {
         while (IsCatching)
@@ -61,7 +75,7 @@ public class SuckableObject : BehaviourBase
         Health = _originalHealth;
 
         IsStunned = false;
-
+        IsCatching = false;
         OnStun?.Invoke(IsStunned);
     }
 

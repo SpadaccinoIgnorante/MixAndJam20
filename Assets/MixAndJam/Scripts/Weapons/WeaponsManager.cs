@@ -78,15 +78,13 @@ public class WeaponsManager : BehaviourBase
             }
         }
         else
-        {
             reloadTimer -= Time.deltaTime;
-        }
     }
 
     protected override void CustomFixedUpdate()
     {
         if (!_canTakeEnemy || IsSucking) return;
-        
+
         if (_isSuckButtonPressed)
         {
             var colls = Physics.OverlapSphere(suckTrigger.transform.position, _suckRadius);
@@ -99,14 +97,24 @@ public class WeaponsManager : BehaviourBase
 
             if (_objectToSuck.IsStunned)
             {
+                _objectToSuck.IsCatching = true;
+
                 _objectToSuck.transform.position = Vector3.Lerp(_objectToSuck.transform.position, suckPoint.position, Time.deltaTime * 10);
-                _objectToSuck.transform.localScale = Vector3.Lerp(_objectToSuck.transform.localScale, Vector3.zero, Time.deltaTime* 3);
+                _objectToSuck.transform.localScale = Vector3.Lerp(_objectToSuck.transform.localScale, Vector3.zero, Time.deltaTime * 3);
 
                 if (_objectToSuck.transform.localScale.x <= 0.1f)
                 {
                     _objectToSuck.currentSpawner.RemoveIngredient();
                     Destroy(_objectToSuck.gameObject);
                 }
+            }
+        }
+        else
+        {
+            if (_objectToSuck != null)
+            {
+                //_objectToSuck.IsCatching = false;
+                _objectToSuck = null;
             }
         }
     }

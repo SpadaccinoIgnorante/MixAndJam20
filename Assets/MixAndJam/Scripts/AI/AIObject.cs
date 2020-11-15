@@ -7,9 +7,18 @@ using DG.Tweening;
 
 // TODO : Controllare che l'escape point successivo non sia stato già preso
 
+public enum AIState
+{
+    Idle,
+    Alerted,
+    Walk,
+    IsStunned
+}
+
 public class AIObject : BehaviourBase
 {
     public BoolEvent OnAlertChanged;
+    public AIStateEvent OnStateChanged;
 
     public bool IsAlerted
     {
@@ -34,6 +43,10 @@ public class AIObject : BehaviourBase
     private float _thresholdDirection;
     [SerializeField]
     private Animator aiAnimation;
+    [SerializeField]
+    [Range(1, 100)]
+    private float _idlePercentage = 25;
+
 
     [Space(10)]
     [Header("Debug")]
@@ -49,8 +62,10 @@ public class AIObject : BehaviourBase
     private bool _drawGizmos;
     [SerializeField]
     private bool _isStunned;
-
+    [SerializeField]
+    private bool _isThinking;
     private Vector3 _prevLocation;
+
     private float _originalAcceleration;
 
     protected override void Awake()
@@ -74,12 +89,18 @@ public class AIObject : BehaviourBase
 
         if (_isStunned)
         {
+            OnStateChanged?.Invoke(AIState.IsStunned);
+
+            aiAnimation.SetBool("isStunned", true);
+            aiAnimation.SetBool("isRunning", false);
+            aiAnimation.SetBool("isRunning", false);
+            aiAnimation.SetBool("isIdle", false);
             _agent.isStopped = true;
-            _agent.enabled = false;
+            //_agent.enabled = false;
         }
         else if (_agent.isStopped && !_isStunned)
         {
-            _agent.enabled = true;
+            //_agent.enabled = true;
             _agent.isStopped = false;
         }
     }
@@ -98,6 +119,7 @@ public class AIObject : BehaviourBase
 
     protected override void CustomUpdate()
     {
+        if (_isThinking) return;
         if (_isStunned) return;
 
         if (IsRunCompleted() && _currentPoint != null)
@@ -107,6 +129,9 @@ public class AIObject : BehaviourBase
             _agent.acceleration = 0;
 
             aiAnimation.SetBool("isRunning", false);
+            aiAnimation.SetBool("isRunning", false);
+            aiAnimation.SetBool("isIdle", false);
+            aiAnimation.SetBool("isStunned", false);
 
             _previousPoint = _currentPoint;
             _currentPoint = null;
@@ -117,21 +142,64 @@ public class AIObject : BehaviourBase
         if (IsAlerted && _currentPoint == null)
         {
             aiAnimation.SetBool("isRunning", true);
+            aiAnimation.SetBool("isIdle", false);
+            aiAnimation.SetBool("isWalking", false);
 
-            _agent.isStopped = false;
-            _agent.acceleration = _originalAcceleration;
+            OnStateChanged?.Invoke(AIState.Alerted);
 
-            _currentPoint = GetRandomPoint(GetPointsByDistance(_escapePointRadius), dir);
-
-            transform.DOLookAt(_currentPoint.transform.position,_rotationSpeed);
-            _agent.SetDestination(_currentPoint.transform.position);
-
-            Debug.DrawRay(_playerTrigger.transform.position, -dir * 5, Color.green);
-
-            var pointDir = (_currentPoint.transform.position - transform.position).normalized;
-
-            Debug.DrawRay(transform.position, pointDir, Color.red);
+            SetPoint(GetRandomPoint(GetPointsByDistance(_escapePointRadius), dir));
         }
+        else if (!IsAlerted && _currentPoint == null)
+        {
+            // Idle
+            if (Random.Range(0, 100) <= _idlePercentage)
+            {
+                aiAnimation.SetBool("isIdle",true);
+                aiAnimation.SetBool("isRunning", false);
+                aiAnimation.SetBool("isWalking", false);
+                aiAnimation.SetBool("isStunned", false);
+
+                OnStateChanged?.Invoke(AIState.Idle);
+
+                StartCoroutine(PerformIdle());
+            }
+            else
+            {
+                // Run
+                aiAnimation.SetBool("isWalking", true); 
+                aiAnimation.SetBool("isRunning", false);
+                aiAnimation.SetBool("isIdle", false);
+                aiAnimation.SetBool("isStunned", false);
+
+                OnStateChanged?.Invoke(AIState.Walk);
+
+                var list = GetPointsByDistance(_escapePointRadius);
+
+                SetPoint(list[Random.Range(0, list.Count)]);
+            }
+        }
+
+        aiAnimation.speed = _agent.speed / 2;
+    }
+
+    private IEnumerator PerformIdle()
+    {
+        _isThinking = true;
+
+        yield return new WaitForSeconds(5);
+        
+        _isThinking = false;
+    }
+
+    private void SetPoint(EscapePoint point)
+    {
+        _agent.isStopped = false;
+        _agent.acceleration = _originalAcceleration;
+
+        _currentPoint = point;
+
+        transform.DOLookAt(_currentPoint.transform.position, _rotationSpeed);
+        _agent.SetDestination(_currentPoint.transform.position);
     }
 
     protected virtual bool IsRunCompleted()
@@ -169,8 +237,11 @@ public class AIObject : BehaviourBase
             return;
         }
 
-        if(!IsAlerted)
+        if (!IsAlerted)
+        {
+            _isThinking = false;
             IsAlerted = true;
+        }
     }
 
     protected virtual EscapePoint GetRandomPoint(List<EscapePoint> points,Vector3 playerDir)
