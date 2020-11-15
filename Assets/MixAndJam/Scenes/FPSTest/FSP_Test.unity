@@ -29897,15 +29897,15 @@ MonoBehaviour:
     type: 3}
   positions:
   - hasOrder: 0
-    position: {x: 0, y: 0, z: 0}
+    position: {x: 0, y: 1, z: -1.18}
   - hasOrder: 0
-    position: {x: 0.35, y: 0, z: 0}
+    position: {x: 0.35, y: 1, z: -1.18}
   - hasOrder: 0
-    position: {x: 0.7, y: 0, z: 0}
+    position: {x: 0.7, y: 1, z: -1.18}
   - hasOrder: 0
-    position: {x: 1.05, y: 0, z: 0}
+    position: {x: 1.05, y: 1, z: -1.18}
   - hasOrder: 0
-    position: {x: 1.4, y: 0, z: 0}
+    position: {x: 1.4, y: 1, z: -1.18}
   orderSets:
   - meat: 1
     tomato: 1
