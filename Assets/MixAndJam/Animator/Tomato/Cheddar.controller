@@ -23,7 +23,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -623603649343465320, guid: 5cad015bbb8538e40923b9ba19952f03,
+  m_Motion: {fileID: -623603649343465320, guid: 9987410be137c204aa3fa0716c8945e7,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -53,7 +53,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -623603649343465320, guid: b36ef01e09114c94dbc17934c7e36309,
+  m_Motion: {fileID: -623603649343465320, guid: cb279b18bca763241b892535f922c220,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -108,7 +108,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -623603649343465320, guid: 8965158d10bff5e48981844a138530a3,
+  m_Motion: {fileID: -623603649343465320, guid: cefffcdf830f09d4d9710ab923ceb097,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -180,7 +180,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Tomato
+  m_Name: Cheddar
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: isWalking
@@ -188,19 +188,19 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isRunning
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isStunned
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -402,7 +402,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -623603649343465320, guid: 300fd4d71587eca46b4f0d70c3873487,
+  m_Motion: {fileID: -623603649343465320, guid: 9ced1761525ec12458af6958d1355116,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 

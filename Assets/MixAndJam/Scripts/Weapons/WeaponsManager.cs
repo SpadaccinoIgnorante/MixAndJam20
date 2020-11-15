@@ -91,7 +91,7 @@ public class WeaponsManager : BehaviourBase
 
             if (colls.Length < 0) return;
 
-            _objectToSuck = colls.ToList().Find(c => c.gameObject.GetComponent<SuckableObject>())?.GetComponent<SuckableObject>();
+            _objectToSuck = colls.ToList().Find(c => c.gameObject.GetComponent<SuckableObject>() && c.gameObject.GetComponent<SuckableObject>().IsStunned)?.GetComponent<SuckableObject>();
 
             if (_objectToSuck == null) return;
 
