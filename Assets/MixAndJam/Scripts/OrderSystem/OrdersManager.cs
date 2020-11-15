@@ -2,19 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OrdersManager : MonoBehaviour
+public class OrdersManager : BehaviourBase
 {
     public GameObject orderPrefab;
     public OrderPosition[] positions;
     public List<OrderSet> orderSets;
+
+    [Tooltip("The time for the next order to appear, in seconds")]
+    public float orderTime = 5f;
+
     public List<Tables> tables { get; private set; }
 
     private int lastOrder;
+
+    private float nextOrderTimer;
 
     private List<OrderPaper> activeOrders;
     private void Start()
     {
         activeOrders = new List<OrderPaper>();
+
+        nextOrderTimer = orderTime;
 
         tables = new List<Tables>();
         for (int i = 0; i < positions.Length; i++)
@@ -26,11 +34,6 @@ public class OrdersManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            NewOrder();
-        }
-
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             RemoveOrder(1);
@@ -99,9 +102,12 @@ public class OrdersManager : MonoBehaviour
             int orderIndex = Random.Range(0, orderSets.Count);
             OrderSet currentOrder = orderSets[orderIndex];
 
+            currentOrder.orderNumber = lastOrder + 1;
             tables[currentTable].currentOrder = currentOrder;
             tables[currentTable].hasOrder = true;
             tables[currentTable].tablePosition = currentPos;
+            tables[currentTable].tableNumber = currentTable;
+
             currentPosition.hasOrder = true;
 
             orderObject.GetComponent<OrderPaper>().Init(lastOrder + 1, currentTable += 1, currentOrder.meat, currentOrder.tomato, currentOrder.lettuce, currentOrder.potato, currentOrder.egg, currentOrder.cheddar); ;
@@ -126,9 +132,27 @@ public class OrdersManager : MonoBehaviour
         return result;
     }
 
+    protected override void CustomUpdate()
+    {
+        if (nextOrderTimer <= 0)
+        {
+            NewOrder();
+            nextOrderTimer = orderTime;
+        } else
+        {
+            nextOrderTimer -= Time.deltaTime;
+        }
+    }
+
+    protected override void CustomFixedUpdate()
+    {
+
+    }
+
     [System.Serializable]
     public class OrderSet
     {
+        public int orderNumber;
         public int meat;
         public int tomato;
         public int lettuce;
@@ -136,7 +160,7 @@ public class OrdersManager : MonoBehaviour
         public int egg;
         public int cheddar;
     }
-
+        
     [System.Serializable]
     public class OrderPosition
     {
@@ -150,5 +174,6 @@ public class OrdersManager : MonoBehaviour
         public bool hasOrder;
         public int tablePosition;
         public OrderSet currentOrder;
+        public int tableNumber;
     }
 }

@@ -79,8 +79,13 @@ public class AIObject : BehaviourBase
 
         _originalAcceleration = _agent.acceleration;
 
-        foreach (var point in FindObjectsOfType<EscapePoint>())
+        for (int i = 0; i < transform.parent.childCount; i++)
+        {
+            var point = transform.parent.GetChild(i).GetComponent<EscapePoint>();
+            if (point == null) continue;
             _escapePoints.Add(point);
+        }
+           
     }
 
     public virtual void OnStun(float value)
