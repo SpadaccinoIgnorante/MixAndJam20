@@ -93,8 +93,7 @@ public class AIObject : BehaviourBase
 
             aiAnimation.SetBool("isStunned", true);
             aiAnimation.SetBool("isRunning", false);
-            aiAnimation.SetBool("isRunning", false);
-            aiAnimation.SetBool("isIdle", false);
+            aiAnimation.SetBool("isWalking", false);
             _agent.isStopped = true;
             //_agent.enabled = false;
         }
@@ -129,8 +128,7 @@ public class AIObject : BehaviourBase
             _agent.acceleration = 0;
 
             aiAnimation.SetBool("isRunning", false);
-            aiAnimation.SetBool("isRunning", false);
-            aiAnimation.SetBool("isIdle", false);
+            aiAnimation.SetBool("isWalking", false);
             aiAnimation.SetBool("isStunned", false);
 
             _previousPoint = _currentPoint;
@@ -142,7 +140,6 @@ public class AIObject : BehaviourBase
         if (IsAlerted && _currentPoint == null)
         {
             aiAnimation.SetBool("isRunning", true);
-            aiAnimation.SetBool("isIdle", false);
             aiAnimation.SetBool("isWalking", false);
 
             OnStateChanged?.Invoke(AIState.Alerted);
@@ -154,7 +151,6 @@ public class AIObject : BehaviourBase
             // Idle
             if (Random.Range(0, 100) <= _idlePercentage)
             {
-                aiAnimation.SetBool("isIdle",true);
                 aiAnimation.SetBool("isRunning", false);
                 aiAnimation.SetBool("isWalking", false);
                 aiAnimation.SetBool("isStunned", false);
@@ -165,10 +161,9 @@ public class AIObject : BehaviourBase
             }
             else
             {
-                // Run
+                // Walk
                 aiAnimation.SetBool("isWalking", true); 
                 aiAnimation.SetBool("isRunning", false);
-                aiAnimation.SetBool("isIdle", false);
                 aiAnimation.SetBool("isStunned", false);
 
                 OnStateChanged?.Invoke(AIState.Walk);
