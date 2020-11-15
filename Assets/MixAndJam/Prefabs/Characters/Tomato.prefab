@@ -293,12 +293,12 @@ MonoBehaviour:
   OnStateChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 3278748388337839563}
+        m_MethodName: StateChanged
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -314,7 +314,7 @@ MonoBehaviour:
   _rotationSpeed: 0.5
   _thresholdDirection: 0.45
   aiAnimation: {fileID: 1399982999}
-  _idlePercentage: 25
+  _idlePercentage: 7
   _escapePoints: []
   _isAlerted: 0
   _currentPoint: {fileID: 0}
@@ -334,11 +334,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abb9280bb20b5b04faa2804f3ea016a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _faceMaterial: {fileID: 0}
-  _offsetShaderField: 
+  _faceMaterial: {fileID: 2100000, guid: 2a6385c34289ee6429b78177521a494b, type: 2}
+  _offsetShaderField: _BaseMap
   _idleOffset: 0
-  _walkOffset: 0
-  _runOffset: 0
+  _walkOffset: 0.333
+  _runOffset: 0.666
 --- !u!54 &285832264
 Rigidbody:
   m_ObjectHideFlags: 0

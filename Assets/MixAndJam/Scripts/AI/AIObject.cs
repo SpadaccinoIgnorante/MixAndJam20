@@ -186,7 +186,7 @@ public class AIObject : BehaviourBase
     {
         _isThinking = true;
 
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2.5f);
         
         _isThinking = false;
     }
