@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraLook : MonoBehaviour
+public class CameraLook : BehaviourBase
 {
     public float xMouseSensitivity = 10f;
     public float yMouseSensitivity = 10f;
@@ -13,13 +13,9 @@ public class CameraLook : MonoBehaviour
 
     float xRotation = 0f;
 
-    private void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
+    protected override void CustomFixedUpdate() { }
 
-    private void Update()
+    protected override void CustomUpdate()
     {
         float mouseX = 0, mouseY = 0;
         if (InputManager.isUsingController())
@@ -41,4 +37,11 @@ public class CameraLook : MonoBehaviour
 
         player.Rotate(Vector3.up * mouseX);
     }
+
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
 }

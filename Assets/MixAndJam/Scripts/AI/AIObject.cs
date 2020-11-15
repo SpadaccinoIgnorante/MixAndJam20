@@ -206,6 +206,11 @@ public class AIObject : BehaviourBase
         return diff;
     }
 
+    protected override void PauseChanged(bool pause)
+    {
+        _agent.isStopped = pause;
+    }
+
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {

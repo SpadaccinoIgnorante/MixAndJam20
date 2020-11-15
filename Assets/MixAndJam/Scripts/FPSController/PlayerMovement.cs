@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : BehaviourBase
 {
     [Header("Movement")]
     public float walkSpeed = 12f;
@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
         cc = GetComponent<CharacterController>();
     }
 
-    private void Update()
+    protected override void CustomUpdate()
     {
         if (IsGrounded() && velocity.y < 0)
         {
@@ -67,4 +67,6 @@ public class PlayerMovement : MonoBehaviour
     {
         return Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
     }
+
+    protected override void CustomFixedUpdate() { }
 }
