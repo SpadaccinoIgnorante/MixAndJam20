@@ -20,6 +20,8 @@ public class SuckableObject : BehaviourBase
     private float _stunTime;
 
     private float _originalHealth;
+    [HideInInspector]
+    public SpawnManager currentSpawner;
 
     protected override void Awake()
     {

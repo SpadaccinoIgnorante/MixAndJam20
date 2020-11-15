@@ -104,6 +104,7 @@ public class WeaponsManager : BehaviourBase
 
                 if (_objectToSuck.transform.localScale.x <= 0.1f)
                 {
+                    _objectToSuck.currentSpawner.RemoveIngredient();
                     Destroy(_objectToSuck.gameObject);
                 }
             }
