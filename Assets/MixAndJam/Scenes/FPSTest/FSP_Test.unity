@@ -3266,7 +3266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientPrefab: {fileID: 4320946012255898928, guid: e233fbc2cf524ae43a640bc618fc385b,
     type: 3}
-  maxIngredientsPerScene: 2
+  maxIngredientsPerScene: 1
   ranch: {fileID: 95115131}
   spawnPoints:
   - {fileID: 1211620674}
